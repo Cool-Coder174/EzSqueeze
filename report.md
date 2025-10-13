@@ -90,25 +90,31 @@ EzSqueeze is being transformed from an early prototype into a professional-grade
 - [x] Create preset schema JSON
 - [x] Add GitHub templates (issues, PRs, workflows)
 
-### Phase 1: DSP Core (Weeks 2-4)
-- [ ] Design & implement DetectorEngine class (Peak/RMS)
-- [ ] Implement GainComputer class with soft/medium/hard knee
-- [ ] Add LookaheadBuffer class (0-10ms) with latency reporting
-- [ ] Implement StereoLink & MSMode processors
-- [ ] Build SidechainFilter chain (HPF 20-400Hz, LPF 4-16kHz)
-- [ ] Add ParallelMix/blend control
-- [ ] Implement AutoMakeupGain (loudness-compensated)
-- [ ] Create ProgramDependentRelease algorithm
-- [ ] Document all DSP math in TECH_NOTES.md
-- [ ] Add RT-safety checks (no allocations in process)
+### Phase 1: DSP Core (Weeks 2-4) — **COMPLETE** ✅
+- [x] Design & implement DetectorEngine class (Peak/RMS)
+- [x] Implement GainComputer class with soft/medium/hard knee
+- [x] Add LookaheadBuffer class (0-10ms) with latency reporting
+- [x] Implement StereoLink & MSMode processors
+- [x] Build SidechainFilter chain (HPF 20-400Hz, LPF 4-16kHz)
+- [x] Add ParallelMix/blend control
+- [x] Implement AutoMakeupGain (loudness-compensated)
+- [x] Create ProgramDependentRelease algorithm
+- [x] Document all DSP math in TECH_NOTES.md
+- [x] Add RT-safety checks (no allocations in process)
 
 **Key Deliverables:**
-- `source/dsp/Detector.h/cpp`
-- `source/dsp/GainComputer.h/cpp`
-- `source/dsp/LookaheadBuffer.h/cpp`
-- `source/dsp/SidechainFilter.h/cpp`
-- `source/dsp/StereoLink.h/cpp`
-- Updated `docs/TECH_NOTES.md` with algorithms
+- `source/dsp/Detector.h/cpp` ✅
+- `source/dsp/GainComputer.h/cpp` ✅
+- `source/dsp/LookaheadBuffer.h/cpp` ✅
+- `source/dsp/SidechainFilter.h/cpp` ✅
+- `source/dsp/StereoLink.h/cpp` ✅
+- `source/dsp/EnvelopeFollower.h/cpp` ✅
+- `source/dsp/AutoMakeupGain.h/cpp` ✅
+- `source/dsp/ProgramDependentRelease.h/cpp` ✅
+- `source/dsp/CompressorProcessor.h/cpp` ✅
+- `source/dsp/test_compressor.cpp` ✅
+- `source/dsp/CMakeLists.txt` ✅
+- Updated `docs/TECH_NOTES.md` with algorithms ✅
 
 ### Phase 2: Advanced Features (Weeks 5-6)
 - [ ] Dual-stage compressor path (FET-fast + Opto-slow)
