@@ -37,8 +37,6 @@ This document provides in-depth technical details about EzSqueeze's DSP algorith
 
 ## Architecture Overview
 
-> **Note:** This section will be filled during Phase 1 (DSP Core Implementation).
-
 EzSqueeze is designed as a modular DSP chain with the following high-level architecture:
 
 ```
@@ -52,8 +50,6 @@ Each module is implemented as a separate class for testability and modularity.
 ---
 
 ## Signal Flow
-
-> **Status:** To be implemented in Phase 1.
 
 ### Main Processing Path
 
@@ -78,8 +74,6 @@ Input → Stage 1 (FET-style, fast) → Stage 2 (Opto-style, slow) → Output
 ---
 
 ## Detector Engine
-
-> **Status:** To be implemented in Phase 1.
 
 ### Peak Detector
 
@@ -123,8 +117,6 @@ Floor set to -120 dBFS to prevent numerical issues.
 ---
 
 ## Gain Computer
-
-> **Status:** To be implemented in Phase 1.
 
 ### Basic Compression Curve
 
@@ -178,8 +170,6 @@ GR = Δ(1/R - 1) = Δ(1 - R) / R
 
 ## Envelope Follower
 
-> **Status:** To be implemented in Phase 1.
-
 ### Attack/Release Implementation
 
 One-pole filter with separate attack/release time constants:
@@ -216,8 +206,6 @@ y[n] = y[n-1] + α(x[n] - y[n-1])
 
 ## Lookahead Buffer
 
-> **Status:** To be implemented in Phase 1.
-
 ### Purpose
 
 Delay audio to allow detector to "see" incoming peaks before they arrive, enabling:
@@ -227,26 +215,7 @@ Delay audio to allow detector to "see" incoming peaks before they arrive, enabli
 
 ### Implementation
 
-```cpp
-class LookaheadBuffer {
-    std::vector<float> buffer;
-    int writePos = 0;
-    int delaySamples;
-    
-    void setDelay(float delayMS, float sampleRate) {
-        delaySamples = static_cast<int>(delayMS * 0.001f * sampleRate);
-        buffer.resize(delaySamples, 0.0f);
-    }
-    
-    float process(float input) {
-        int readPos = (writePos - delaySamples + buffer.size()) % buffer.size();
-        float output = buffer[readPos];
-        buffer[writePos] = input;
-        writePos = (writePos + 1) % buffer.size();
-        return output;
-    }
-};
-```
+Implemented as a per-channel ring buffer with pre-allocation during `prepare()` to ensure RT-safety (no allocations in audio thread). Processing reads delayed samples and writes current input in a circular fashion.
 
 ### Latency Reporting
 
@@ -261,8 +230,6 @@ int getLatencySamples() const {
 ---
 
 ## Stereo Linking & M/S Processing
-
-> **Status:** To be implemented in Phase 1.
 
 ### Stereo Link
 
@@ -299,23 +266,13 @@ float rightOut = midCompressed - sideCompressed;
 
 ## Sidechain Filtering
 
-> **Status:** To be implemented in Phase 1.
-
 ### High-Pass Filter (HPF)
 
-Remove low frequencies from detection signal to prevent bass-induced pumping:
-
-```cpp
-// Butterworth 2nd-order HPF at 80 Hz
-```
+Remove low frequencies from detection signal to prevent bass-induced pumping. Implemented with RBJ cookbook biquad design.
 
 ### Low-Pass Filter (LPF)
 
-Focus compression on bass frequencies:
-
-```cpp
-// Butterworth 2nd-order LPF at 8 kHz
-```
+Focus compression on bass frequencies using RBJ cookbook coefficients.
 
 ### Biquad Implementation
 
@@ -360,8 +317,6 @@ y[n] = b0*x[n] + b1*x[n-1] + b2*x[n-2] - a1*y[n-1] - a2*y[n-2]
 
 ## Auto-Makeup Gain
 
-> **Status:** To be implemented in Phase 1.
-
 ### Goal
 
 Compensate for gain reduction to maintain perceived loudness.
@@ -386,8 +341,6 @@ float adaptiveMakeup = runningAverageGR * 0.8f;
 ---
 
 ## Program-Dependent Release
-
-> **Status:** To be implemented in Phase 1.
 
 ### Concept
 
