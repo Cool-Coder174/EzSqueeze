@@ -91,6 +91,16 @@ See [report.md](report.md) for detailed project status and roadmap.
    - Follow HISE export wizard
    - Built plugins will appear in `Binaries/` (gitignored)
 
+### DSP Core (Phase 1) — Implemented Modules
+
+The following core modules are now implemented under `source/dsp/`:
+- `Utilities.h`, `EnvelopeFollower.h`, `Detector.h/cpp`
+- `GainComputer.h`, `LookaheadBuffer.h`, `Biquad.h`
+- `SidechainFilter.h`, `StereoLink.h`, `ParallelMix.h`
+- `AutoMakeup.h`, `ProgramDependentRelease.h`, `CompressorCore.h`
+
+See `docs/TECH_NOTES.md` for details.
+
 ### Future JUCE Build Steps
 ```bash
 mkdir build && cd build

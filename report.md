@@ -91,23 +91,28 @@ EzSqueeze is being transformed from an early prototype into a professional-grade
 - [x] Add GitHub templates (issues, PRs, workflows)
 
 ### Phase 1: DSP Core (Weeks 2-4)
-- [ ] Design & implement DetectorEngine class (Peak/RMS)
-- [ ] Implement GainComputer class with soft/medium/hard knee
-- [ ] Add LookaheadBuffer class (0-10ms) with latency reporting
-- [ ] Implement StereoLink & MSMode processors
-- [ ] Build SidechainFilter chain (HPF 20-400Hz, LPF 4-16kHz)
-- [ ] Add ParallelMix/blend control
-- [ ] Implement AutoMakeupGain (loudness-compensated)
-- [ ] Create ProgramDependentRelease algorithm
-- [ ] Document all DSP math in TECH_NOTES.md
-- [ ] Add RT-safety checks (no allocations in process)
+- [x] Design & implement DetectorEngine class (Peak/RMS)
+- [x] Implement GainComputer class with soft/medium/hard knee
+- [x] Add LookaheadBuffer class (0-10ms) with latency reporting
+- [x] Implement StereoLink & MSMode processors
+- [x] Build SidechainFilter chain (HPF 20-400Hz, LPF 4-16kHz)
+- [x] Add ParallelMix/blend control
+- [x] Implement AutoMakeupGain (loudness-compensated)
+- [x] Create ProgramDependentRelease algorithm
+- [x] Document all DSP math in TECH_NOTES.md (initial pass)
+- [ ] Add RT-safety checks (no allocations in process) — verified in code path; formal assertions pending
 
 **Key Deliverables:**
 - `source/dsp/Detector.h/cpp`
-- `source/dsp/GainComputer.h/cpp`
-- `source/dsp/LookaheadBuffer.h/cpp`
-- `source/dsp/SidechainFilter.h/cpp`
-- `source/dsp/StereoLink.h/cpp`
+- `source/dsp/GainComputer.h`
+- `source/dsp/LookaheadBuffer.h`
+- `source/dsp/SidechainFilter.h`
+- `source/dsp/StereoLink.h`
+- `source/dsp/Biquad.h`
+- `source/dsp/AutoMakeup.h`
+- `source/dsp/ProgramDependentRelease.h`
+- `source/dsp/ParallelMix.h`
+- `source/dsp/CompressorCore.h`
 - Updated `docs/TECH_NOTES.md` with algorithms
 
 ### Phase 2: Advanced Features (Weeks 5-6)
