@@ -37,7 +37,7 @@ This document provides in-depth technical details about EzSqueeze's DSP algorith
 
 ## Architecture Overview
 
-> **Note:** This section will be filled during Phase 1 (DSP Core Implementation).
+> **Status:** Initial DSP core implemented (Phase 1 in progress).
 
 EzSqueeze is designed as a modular DSP chain with the following high-level architecture:
 
@@ -49,11 +49,22 @@ Input → Preamp → Oversampling ↓
 
 Each module is implemented as a separate class for testability and modularity.
 
+Implemented core modules (files under `source/dsp/`):
+- `Detector.h` (Peak/RMS) with `EnvelopeFollower.h`
+- `GainComputer.h` (hard/medium/soft knee)
+- `LookaheadBuffer.h` (per-channel ring buffer, latency reporting)
+- `SidechainFilter.h` + `Biquad.h` (HPF/LPF)
+- `StereoLink.h` (linking + Mid/Side utilities)
+- `AutoMakeup.h` (static + adaptive)
+- `ProgramDependentRelease.h` (heuristic)
+- `ParallelMix.h`
+- `CompressorCore.h` (wires the path and parameters)
+
 ---
 
 ## Signal Flow
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Initial implementation complete (detector, envelope, gain computer, sidechain, lookahead, stereo link, parallel mix, auto-makeup, program-dependent release). Oversampling and saturation pending.
 
 ### Main Processing Path
 
@@ -79,7 +90,7 @@ Input → Stage 1 (FET-style, fast) → Stage 2 (Opto-style, slow) → Output
 
 ## Detector Engine
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/Detector.h` with envelope smoothing via `source/dsp/EnvelopeFollower.h`.
 
 ### Peak Detector
 
@@ -124,7 +135,7 @@ Floor set to -120 dBFS to prevent numerical issues.
 
 ## Gain Computer
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/GainComputer.h` (hard/medium/soft knee).
 
 ### Basic Compression Curve
 
@@ -178,7 +189,7 @@ GR = Δ(1/R - 1) = Δ(1 - R) / R
 
 ## Envelope Follower
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/EnvelopeFollower.h`.
 
 ### Attack/Release Implementation
 
@@ -216,7 +227,7 @@ y[n] = y[n-1] + α(x[n] - y[n-1])
 
 ## Lookahead Buffer
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/LookaheadBuffer.h` with latency accessors.
 
 ### Purpose
 
@@ -262,7 +273,7 @@ int getLatencySamples() const {
 
 ## Stereo Linking & M/S Processing
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/StereoLink.h` (link blend + Mid/Side encode/decode utilities).
 
 ### Stereo Link
 
@@ -299,7 +310,7 @@ float rightOut = midCompressed - sideCompressed;
 
 ## Sidechain Filtering
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/SidechainFilter.h` using `source/dsp/Biquad.h` (2nd-order Butterworth-style HPF/LPF).
 
 ### High-Pass Filter (HPF)
 
@@ -360,7 +371,7 @@ y[n] = b0*x[n] + b1*x[n-1] + b2*x[n-2] - a1*y[n-1] - a2*y[n-2]
 
 ## Auto-Makeup Gain
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/AutoMakeup.h` (static estimate + adaptive running-average mode).
 
 ### Goal
 
@@ -387,7 +398,7 @@ float adaptiveMakeup = runningAverageGR * 0.8f;
 
 ## Program-Dependent Release
 
-> **Status:** To be implemented in Phase 1.
+> **Status:** Implemented in `source/dsp/ProgramDependentRelease.h` (heuristic transient/GR aware selection).
 
 ### Concept
 
@@ -527,7 +538,7 @@ Saturation must be oversampled (2× minimum) to avoid aliasing.
 
 ## Latency Compensation
 
-> **Status:** To be implemented in Phase 1-2.
+> **Status:** Partial — lookahead latency implemented and queryable; oversampling latency to be added in Phase 2.
 
 ### Total Latency
 
@@ -606,8 +617,8 @@ Parameter changes should be delayed to match audio delay for click-free automati
 
 ---
 
-**Document Status**: Initial structure created (Phase 0).  
-Algorithms will be documented as implemented in Phases 1-2.
+**Document Status**: Updated with initial Phase 1 implementations.  
+Further updates after integrating oversampling and non-linear stages (Phase 2).
 
-**Next Update**: After Phase 1 completion (DSP Core).
+**Next Update**: Mid-Phase 2 (oversampling) and after Phase 2 completion.
 
