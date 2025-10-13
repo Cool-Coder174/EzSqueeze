@@ -1,0 +1,62 @@
+# Build artifacts
+build/
+Binaries/
+*.app
+*.vst3
+*.component
+*.dll
+*.exe
+*.dylib
+*.so
+
+# HISE autosaves
+Presets/Autosave_*.hip
+hise/presets/Autosave_*.hip
+
+# IDE
+.vscode/
+.idea/
+*.xcworkspace
+*.xcodeproj
+xcuserdata/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Dependencies
+node_modules/
+vendor/
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+tests/golden/outputs/
+tests/benchmarks/results/
+
+# Generated docs
+docs/api/generated/
+
+# Secrets
+*.pem
+*.p12
+*.provisionprofile
+secrets/
+.env
+
+# Temp
+tmp/
+temp/
+*.tmp
+
