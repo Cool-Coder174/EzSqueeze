@@ -29,9 +29,6 @@ float GainComputer::calculateGainReduction(float inputLevel) const
         return 0.0f;
     }
 
-    // Calculate overshoot above threshold
-    float overshoot = inputLevel - threshold_;
-
     // Apply different knee calculations based on type
     switch (knee_)
     {
