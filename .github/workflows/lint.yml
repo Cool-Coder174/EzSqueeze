@@ -1,0 +1,17 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [ main, newFeature/overhaul ]
+
+jobs:
+  clang-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check clang-format (placeholder)
+        run: |
+          echo "clang-format check placeholder"
+      - name: Run clang-tidy (placeholder)
+        run: |
+          echo "clang-tidy check placeholder"

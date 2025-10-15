@@ -1,0 +1,18 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, newFeature/overhaul ]
+  pull_request:
+    branches: [ main, newFeature/overhaul ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run unit tests (placeholder)
+        run: |
+          echo "No tests yet - Phase 5 will add tests"

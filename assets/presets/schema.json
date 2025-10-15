@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EzSqueeze Preset",
+  "type": "object",
+  "required": ["version", "name", "parameters"],
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9_.-]+)?$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "author": { "type": "string" },
+    "description": { "type": "string", "maxLength": 512 },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "maxItems": 16
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Vocal", "Drum Bus", "Bass", "Guitar", "Mixbus", "Experimental"]
+    },
+    "styleMode": {
+      "type": "string",
+      "enum": [
+        "Pop Vocal Shine",
+        "Retro Croon Warmth",
+        "Bedroom Bloom",
+        "FET Fast Punch",
+        "VCA Bus Glue"
+      ]
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "parameters": {
+      "type": "object",
+      "description": "Flat map of parameter IDs to numeric values in engineering units (ms, dB, ratio, etc.)",
+      "patternProperties": {
+        "^[A-Za-z][A-Za-z0-9_\-]{1,63}$": { "type": ["number", "integer", "boolean", "string"] }
+      },
+      "additionalProperties": false
+    },
+    "bypass": { "type": "boolean", "default": false }
+  },
+  "additionalProperties": false
+}

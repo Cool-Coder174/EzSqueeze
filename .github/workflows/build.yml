@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, newFeature/overhaul ]
+  pull_request:
+    branches: [ main, newFeature/overhaul ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Configure (placeholder)
+        run: |
+          echo "Configure step placeholder"
+
+      - name: Build (placeholder)
+        run: |
+          echo "Build step placeholder"
