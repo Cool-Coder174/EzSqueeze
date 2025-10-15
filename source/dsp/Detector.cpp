@@ -1,57 +1,76 @@
+/**
+ * @file Detector.cpp
+ * @brief Implementation of level detection engine
+ */
+
 #include "Detector.h"
-#include <algorithm>
-#include <cmath>
 
-namespace ezsqueeze::dsp {
+namespace EzSqueeze {
+namespace DSP {
 
-void Detector::prepare(double newSampleRate) {
-    sampleRate = newSampleRate;
-    updateRmsCoeff();
+void Detector::prepare(double sampleRate, float rmsWindowMs)
+{
+    m_sampleRate = sampleRate;
+    m_rmsAlpha = calculateRmsAlpha(rmsWindowMs);
     reset();
 }
 
-void Detector::reset() {
-    previousPeak = 0.0f;
-    previousRmsSquared = 0.0f;
-    lastLevelLinear = 0.0f;
-    lastLevelDb = -120.0f;
+void Detector::setMode(DetectorMode mode)
+{
+    m_mode = mode;
 }
 
-void Detector::setMode(DetectorMode newMode) {
-    mode = newMode;
-}
-
-void Detector::setRmsWindowMs(float windowMs) {
-    rmsWindowMs = std::max(0.01f, windowMs);
-    updateRmsCoeff();
-}
-
-float Detector::processSample(float inputSample) {
-    const float x = std::abs(inputSample);
-
+float Detector::processSample(float input)
+{
+    const float absInput = std::abs(input);
     float level = 0.0f;
-    if (mode == DetectorMode::Peak) {
-        // Short decay to stabilize instantaneous peak between samples
-        constexpr float decayCoeff = 0.95f;
-        previousPeak = std::max(x, previousPeak * decayCoeff);
-        level = previousPeak;
-    } else { // RMS
-        previousRmsSquared = (1.0f - rmsCoeff) * previousRmsSquared + rmsCoeff * (x * x);
-        level = std::sqrt(previousRmsSquared);
+    
+    switch (m_mode)
+    {
+        case DetectorMode::Peak:
+        {
+            // Peak detector with decay
+            if (absInput > m_peakLevel)
+            {
+                m_peakLevel = absInput;  // Instant attack
+            }
+            else
+            {
+                m_peakLevel *= m_peakDecay;  // Slow decay
+            }
+            level = m_peakLevel;
+            break;
+        }
+        
+        case DetectorMode::RMS:
+        {
+            // RMS detector using exponential averaging
+            const float squared = input * input;
+            m_rmsSquared = m_rmsSquared + m_rmsAlpha * (squared - m_rmsSquared);
+            level = std::sqrt(std::max(m_rmsSquared, 0.0f));
+            break;
+        }
     }
-
-    lastLevelLinear = level;
-    lastLevelDb = linearToDb(level);
-    return level;
+    
+    // Convert to dB scale
+    return linearToDb(level);
 }
 
-float Detector::processSampleDb(float inputSample) {
-    (void)processSample(inputSample);
-    return lastLevelDb;
+void Detector::reset()
+{
+    m_peakLevel = 0.0f;
+    m_rmsSquared = 0.0f;
 }
 
-void Detector::updateRmsCoeff() {
-    rmsCoeff = timeToCoeffMs(rmsWindowMs, sampleRate);
+float Detector::calculateRmsAlpha(float windowMs)
+{
+    // Convert window time to samples
+    const float windowSamples = (windowMs * 0.001f) * static_cast<float>(m_sampleRate);
+    
+    // Calculate exponential averaging coefficient
+    // For 63% response time: alpha = 1 - exp(-1/tau)
+    return 1.0f - std::exp(-1.0f / windowSamples);
 }
 
-} // namespace ezsqueeze::dsp
+} // namespace DSP
+} // namespace EzSqueeze

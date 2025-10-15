@@ -1,35 +1,93 @@
+/**
+ * @file LookaheadBuffer.h
+ * @brief Delay buffer for lookahead compression
+ * 
+ * Delays audio to allow detector to "see" incoming peaks before
+ * they arrive, enabling zero-overshoot compression with faster
+ * attack times and more transparent response.
+ * 
+ * @author Isaac Hernandez
+ * @date October 2025
+ */
+
 #pragma once
+
 #include <vector>
-#include <cstdint>
+#include <cmath>
 #include <algorithm>
 
-namespace ezsqueeze::dsp {
+namespace EzSqueeze {
+namespace DSP {
 
-class LookaheadBuffer {
+/**
+ * @class LookaheadBuffer
+ * @brief Circular delay buffer for lookahead processing
+ * 
+ * The LookaheadBuffer delays the audio signal so the detector
+ * can analyze it before it reaches the gain stage. This allows
+ * the compressor to react to transients before they occur,
+ * preventing overshoot and enabling more transparent compression.
+ * 
+ * RT-Safe: Yes (after prepare(), no allocations)
+ * Complexity: O(1) per sample
+ */
+class LookaheadBuffer
+{
 public:
-    void prepare(double newSampleRate, int numChannels);
+    LookaheadBuffer() = default;
+    ~LookaheadBuffer() = default;
+
+    /**
+     * @brief Prepare lookahead buffer
+     * @param sampleRate Sample rate in Hz
+     * @param maxLookaheadMs Maximum lookahead time in ms (typically 0-10ms)
+     */
+    void prepare(double sampleRate, float maxLookaheadMs = 10.0f);
+
+    /**
+     * @brief Set lookahead delay time
+     * @param delayMs Delay time in milliseconds (0 to maxLookahead)
+     */
+    void setDelay(float delayMs);
+
+    /**
+     * @brief Process single sample through delay
+     * @param input Input sample
+     * @return Delayed output sample
+     */
+    float processSample(float input);
+
+    /**
+     * @brief Reset buffer to silence
+     */
     void reset();
 
-    void setDelayMs(float newDelayMs);
+    /**
+     * @brief Get current delay in samples
+     * @return Delay length in samples
+     */
+    int getDelaySamples() const { return m_delaySamples; }
 
-    int getLatencySamples() const { return lookaheadSamples; }
-    float getDelayMs() const { return delayMs; }
+    /**
+     * @brief Get current delay in milliseconds
+     * @return Delay time in ms
+     */
+    float getDelayMs() const { return m_delayMs; }
 
-    // In-place delay of audio block per channel
-    // audio[ch] points to an array of numSamples
-    void process(float** audio, int numChannels, int numSamples);
+    /**
+     * @brief Get latency introduced by this buffer
+     * @return Latency in samples (for DAW reporting)
+     */
+    int getLatencySamples() const { return m_delaySamples; }
 
 private:
-    void allocate();
-
-    double sampleRate { 48000.0 };
-    int channels { 0 };
-
-    float delayMs { 0.0f };
-    int lookaheadSamples { 0 };
-
-    std::vector<std::vector<float>> ringBuffer; // [channel][index]
-    std::vector<int> writePositions;            // [channel]
+    std::vector<float> m_buffer;
+    int m_writePos = 0;
+    int m_delaySamples = 0;
+    float m_delayMs = 0.0f;
+    double m_sampleRate = 48000.0;
+    int m_maxDelaySamples = 0;
 };
 
-} // namespace ezsqueeze::dsp
+} // namespace DSP
+} // namespace EzSqueeze
