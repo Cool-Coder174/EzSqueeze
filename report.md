@@ -91,24 +91,62 @@ EzSqueeze is being transformed from an early prototype into a professional-grade
 - [x] Add GitHub templates (issues, PRs, workflows)
 
 ### Phase 1: DSP Core (Weeks 2-4)
-- [ ] Design & implement DetectorEngine class (Peak/RMS)
-- [ ] Implement GainComputer class with soft/medium/hard knee
-- [ ] Add LookaheadBuffer class (0-10ms) with latency reporting
-- [ ] Implement StereoLink & MSMode processors
-- [ ] Build SidechainFilter chain (HPF 20-400Hz, LPF 4-16kHz)
-- [ ] Add ParallelMix/blend control
-- [ ] Implement AutoMakeupGain (loudness-compensated)
-- [ ] Create ProgramDependentRelease algorithm
-- [ ] Document all DSP math in TECH_NOTES.md
-- [ ] Add RT-safety checks (no allocations in process)
+
+Status audit of current codebase indicates several Phase 1 items are already implemented:
+- Detector (Peak/RMS): present in `source/dsp/Detector.h/.cpp`
+- GainComputer (threshold/ratio/knee): present in `source/dsp/GainComputer.h`
+- EnvelopeFollower (attack/release): present in `source/dsp/EnvelopeFollower.h`
+- LookaheadBuffer (0–10ms + latency getter): present in `source/dsp/LookaheadBuffer.h/.cpp`
+- Stereo link and M/S utilities: present in `source/dsp/StereoProcessor.h/.cpp` and `source/dsp/StereoLink.h`
+- Program-dependent release heuristic: present in `source/dsp/ProgramDependentRelease.h`
+
+Accordingly, Phase 1 will focus on integration, missing utilities, tests, and documentation.
+
+#### Objectives
+- [ ] Integrate Detector → EnvelopeFollower → GainComputer end-to-end processing path
+- [ ] Finalize GainComputer soft/medium/hard knee behavior (complete `computeSoftKnee` implementation)
+- [ ] Implement `CompressorUtilities` glue (threshold/ratio conversions, dB↔linear helpers)
+- [ ] Build SidechainFilter chain (HPF 20–400 Hz, LPF 4–16 kHz) using `Biquad`
+- [ ] Add ParallelMix/blend control (dry/wet)
+- [ ] Implement AutoMakeupGain (initial heuristic + adaptive option)
+- [ ] Wire ProgramDependentRelease into EnvelopeFollower (optional mode)
+- [ ] Add RT-safety assertions (no allocations in process, pre-allocate buffers)
+- [ ] Document all DSP math in `docs/TECH_NOTES.md` (detector, envelope, knee, lookahead, stereo link)
+- [ ] Unit tests for detector, gain computer, envelope, lookahead, stereo link, sidechain filter
+
+#### Week-by-Week Plan
+- Week 2:
+  - [ ] Finish GainComputer knee implementation and unit tests
+  - [ ] Integrate Detector → EnvelopeFollower → GainComputer; add simple processing harness
+  - [ ] Add StereoLink/MS path selection and tests
+  - [ ] Update TECH_NOTES with finalized formulas (detector, envelope, knee)
+- Week 3:
+  - [ ] Implement SidechainFilter (HPF/LPF with RBJ biquads) and tests
+  - [ ] Add LookaheadBuffer into the path with latency aggregation function
+  - [ ] Implement ParallelMix and AutoMakeupGain (heuristic) with tests
+  - [ ] RT-safety review (prepare/reset paths, no per-sample allocation)
+- Week 4:
+  - [ ] Introduce ProgramDependentRelease option and tests
+  - [ ] Add adaptive AutoMakeup (running GR) and toggle
+  - [ ] Complete documentation for all Phase 1 modules; API tidy-up
+  - [ ] Gate: Phase 1 sign-off after tests pass and docs updated
+
+#### Exit Criteria (Gates)
+- [ ] All Phase 1 unit tests pass locally
+- [ ] End-to-end compressor path processes buffers deterministically (no NaNs/inf)
+- [ ] Reported latency = lookahead + (any fixed filter/OS latency) with ±1 sample accuracy
+- [ ] RT-safety: no allocations or locks in audio path; sanitizer clean in debug
+- [ ] TECH_NOTES updated with equations and references for all Phase 1 modules
 
 **Key Deliverables:**
-- `source/dsp/Detector.h/cpp`
-- `source/dsp/GainComputer.h/cpp`
-- `source/dsp/LookaheadBuffer.h/cpp`
-- `source/dsp/SidechainFilter.h/cpp`
-- `source/dsp/StereoLink.h/cpp`
-- Updated `docs/TECH_NOTES.md` with algorithms
+- Integrated compressor core (Detector → Envelope → GainComputer → GR apply)
+- `source/dsp/GainComputer.cpp` (knee impl) and finalized API in `.h`
+- `source/dsp/SidechainFilter.h/cpp` (HPF/LPF biquads)
+- `source/dsp/ParallelMix.h` (utility) and mix wiring
+- `source/dsp/AutoMakeup.h/cpp` (heuristic + adaptive)
+- `source/dsp/Latency.h` (aggregates lookahead + fixed latencies)
+- Unit tests in `tests/unit/*` for all modules
+- Updated `docs/TECH_NOTES.md`
 
 ### Phase 2: Advanced Features (Weeks 5-6)
 - [ ] Dual-stage compressor path (FET-fast + Opto-slow)
