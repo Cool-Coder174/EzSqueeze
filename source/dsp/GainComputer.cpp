@@ -77,17 +77,17 @@ float GainComputer::computeSoftKnee(float inputLevelDb) const
 {
     // Position within knee (0 to 1)
     const float kneeStart = m_threshold - m_kneeWidth / 2.0f;
-    const float x = (inputLevelDb - kneeStart) / m_kneeWidth;
-    
-    // Parabolic curve for smooth knee
-    // At x=0: no compression, at x=1: full ratio
-    const float kneeFactor = x * x;  // Quadratic curve
-    
-    // Compute as if at threshold, then scale by knee factor
-    const float overshoot = inputLevelDb - m_threshold;
-    const float fullReduction = computeHardKnee(std::max(0.0f, overshoot + m_kneeWidth / 2.0f));
-    
-    return fullReduction * kneeFactor;
+    const float t = (inputLevelDb - kneeStart) / m_kneeWidth; // 0..1
+
+    // Parabolic ease-in: 0 at start, 1 at end
+    const float kneeFactor = t * t;
+
+    // Compute hard knee reduction for the actual overshoot (relative to threshold)
+    const float overshoot = std::max(0.0f, inputLevelDb - m_threshold);
+    const float hardReduction = computeHardKnee(overshoot);
+
+    // Scale hard reduction by knee factor to smoothly ramp in
+    return hardReduction * kneeFactor;
 }
 
 } // namespace DSP
