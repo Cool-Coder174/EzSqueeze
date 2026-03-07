@@ -17,7 +17,7 @@
 #include "../dsp/LookaheadBuffer.h"
 #include "../dsp/Oversampling.h"
 #include "../dsp/ProgramDependentRelease.h"
-#include "../dsp/Saturation.h"
+
 #include "../dsp/SidechainFilter.h"
 #include "../dsp/StereoLink.h"
 #include "../dsp/VibeWheel.h"
@@ -72,24 +72,29 @@ public:
 private:
     // --- DSP Modules ---
 
-    ezsqueeze::Detector detector_;
+    ezsqueeze::Detector detectorL_;
+    ezsqueeze::Detector detectorR_;
     ezsqueeze::GainComputer gainComputer_;
-    ezsqueeze::EnvelopeFollower envelopeFollower_;
+    ezsqueeze::EnvelopeFollower envelopeFollowerL_;
+    ezsqueeze::EnvelopeFollower envelopeFollowerR_;
     ezsqueeze::LookaheadBuffer lookaheadBufferL_;
     ezsqueeze::LookaheadBuffer lookaheadBufferR_;
     ezsqueeze::StereoLink stereoLink_;
-    ezsqueeze::SidechainFilter sidechainFilter_;
+    ezsqueeze::SidechainFilter sidechainFilterL_;
+    ezsqueeze::SidechainFilter sidechainFilterR_;
     ezsqueeze::AutoMakeup autoMakeup_;
     ezsqueeze::ProgramDependentRelease programDependentRelease_;
     ezsqueeze::Oversampling oversampling_;
-    ezsqueeze::Saturation saturation_;
-    ezsqueeze::VibeWheel vibeWheel_;
+    ezsqueeze::VibeWheel vibeWheelL_;
+    ezsqueeze::VibeWheel vibeWheelR_;
     ezsqueeze::DualStageCompressor dualStageCompressor_;
-    ezsqueeze::CloudGainPreamp cloudGainPreamp_;
+    ezsqueeze::CloudGainPreamp cloudGainPreampL_;
+    ezsqueeze::CloudGainPreamp cloudGainPreampR_;
     ezsqueeze::TransientSculptor transientSculptor_;
 
     double currentSampleRate_ = 44100.0;
     int currentBlockSize_     = 512;
+    float prevLevel_          = 0.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EzSqueezeProcessor)
 };

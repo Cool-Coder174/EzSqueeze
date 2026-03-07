@@ -18,11 +18,11 @@ void EzSqueezeEditor::paint(juce::Graphics& g)
     g.fillAll(juce::Colour(0xff1a1a2e));
 
     g.setColour(juce::Colour(0xffef932c));
-    g.setFont(juce::FontOptions(28.0f));
+    g.setFont(juce::Font(28.0f));
     g.drawText("EzSqueeze", getLocalBounds().removeFromTop(80), juce::Justification::centred);
 
     g.setColour(juce::Colours::white.withAlpha(0.6f));
-    g.setFont(juce::FontOptions(16.0f));
+    g.setFont(juce::Font(16.0f));
     g.drawText(
         "Use HISE for full UI",
         getLocalBounds().reduced(20),

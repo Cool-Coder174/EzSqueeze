@@ -38,6 +38,7 @@ FetchContent_MakeAvailable(JUCE)
 juce_add_plugin(EzSqueeze
     PRODUCT_NAME                "EzSqueeze"
     COMPANY_NAME                "Isaac Hernandez"
+    BUNDLE_ID                   "com.isaachernandez.ezsqueeze"
     PLUGIN_MANUFACTURER_CODE    IzHz
     PLUGIN_CODE                 EzSq
     FORMATS                     VST3 AU
@@ -45,7 +46,7 @@ juce_add_plugin(EzSqueeze
     NEEDS_MIDI_INPUT            FALSE
     NEEDS_MIDI_OUTPUT           FALSE
     IS_MIDI_EFFECT              FALSE
-    COPY_PLUGIN_AFTER_BUILD     TRUE
+    COPY_PLUGIN_AFTER_BUILD     FALSE
 )
 
 juce_generate_juce_header(EzSqueeze)
