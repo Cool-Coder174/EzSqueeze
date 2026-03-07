@@ -28,7 +28,7 @@ public:
      * @param ratio      Compression ratio (e.g. 4.0 for 4:1).
      * @return Estimated makeup gain in dB (positive = boost).
      */
-    float computeStatic(float threshold, float ratio) const
+    float computeStatic(float /*threshold*/, float ratio) const
     {
         float safeRatio = std::max(ratio, 1.0f);
         float grAtOvershoot = ASSUMED_OVERSHOOT_DB * (1.0f - 1.0f / safeRatio);
