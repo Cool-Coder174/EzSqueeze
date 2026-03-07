@@ -14,10 +14,10 @@ TEST_CASE("100% stereo link: both channels get max level", "[stereo][link]") {
     float rightLevel = 0.8f;
     float maxLevel = std::max(leftLevel, rightLevel);
 
-    auto [leftOut, rightOut] = sl.processLink(leftLevel, rightLevel);
+    sl.processLink(leftLevel, rightLevel);
 
-    REQUIRE_THAT(leftOut, WithinAbs(maxLevel, 0.001));
-    REQUIRE_THAT(rightOut, WithinAbs(maxLevel, 0.001));
+    REQUIRE_THAT(leftLevel, WithinAbs(maxLevel, 0.001));
+    REQUIRE_THAT(rightLevel, WithinAbs(maxLevel, 0.001));
 }
 
 TEST_CASE("0% stereo link: channels independent", "[stereo][link]") {
@@ -26,11 +26,13 @@ TEST_CASE("0% stereo link: channels independent", "[stereo][link]") {
 
     float leftLevel  = 0.3f;
     float rightLevel = 0.8f;
+    float origL = leftLevel;
+    float origR = rightLevel;
 
-    auto [leftOut, rightOut] = sl.processLink(leftLevel, rightLevel);
+    sl.processLink(leftLevel, rightLevel);
 
-    REQUIRE_THAT(leftOut, WithinAbs(leftLevel, 0.001));
-    REQUIRE_THAT(rightOut, WithinAbs(rightLevel, 0.001));
+    REQUIRE_THAT(leftLevel, WithinAbs(origL, 0.001));
+    REQUIRE_THAT(rightLevel, WithinAbs(origR, 0.001));
 }
 
 TEST_CASE("50% stereo link: blended levels", "[stereo][link]") {
@@ -41,12 +43,12 @@ TEST_CASE("50% stereo link: blended levels", "[stereo][link]") {
     float rightLevel = 0.8f;
     float maxLevel = std::max(leftLevel, rightLevel);
 
-    auto [leftOut, rightOut] = sl.processLink(leftLevel, rightLevel);
+    sl.processLink(leftLevel, rightLevel);
 
-    REQUIRE(leftOut > leftLevel - 0.001f);
-    REQUIRE(leftOut < maxLevel + 0.001f);
-    REQUIRE(rightOut > rightLevel - 0.001f);
-    REQUIRE(rightOut <= maxLevel + 0.001f);
+    REQUIRE(leftLevel > 0.2f - 0.001f);
+    REQUIRE(leftLevel < maxLevel + 0.001f);
+    REQUIRE(rightLevel > 0.8f - 0.001f);
+    REQUIRE(rightLevel <= maxLevel + 0.001f);
 }
 
 TEST_CASE("Equal levels: link amount doesn't matter", "[stereo][link]") {
@@ -58,9 +60,10 @@ TEST_CASE("Equal levels: link amount doesn't matter", "[stereo][link]") {
     for (float link : linkAmounts) {
         DYNAMIC_SECTION("Link: " << link * 100 << "%") {
             sl.setLinkAmount(link);
-            auto [leftOut, rightOut] = sl.processLink(level, level);
-            REQUIRE_THAT(leftOut, WithinAbs(level, 0.001));
-            REQUIRE_THAT(rightOut, WithinAbs(level, 0.001));
+            float l = level, r = level;
+            sl.processLink(l, r);
+            REQUIRE_THAT(l, WithinAbs(level, 0.001));
+            REQUIRE_THAT(r, WithinAbs(level, 0.001));
         }
     }
 }
@@ -71,9 +74,9 @@ TEST_CASE("M/S encode/decode roundtrip preserves original", "[stereo][ms]") {
     SECTION("Simple L/R values") {
         float left = 0.7f;
         float right = 0.3f;
-
-        auto [mid, side] = sl.encodeMS(left, right);
-        auto [lOut, rOut] = sl.decodeMS(mid, side);
+        float mid, side, lOut, rOut;
+        sl.encodeMidSide(left, right, mid, side);
+        sl.decodeMidSide(mid, side, lOut, rOut);
 
         REQUIRE_THAT(lOut, WithinAbs(left, 0.0001));
         REQUIRE_THAT(rOut, WithinAbs(right, 0.0001));
@@ -82,8 +85,8 @@ TEST_CASE("M/S encode/decode roundtrip preserves original", "[stereo][ms]") {
     SECTION("Mono signal: side is zero") {
         float left = 0.5f;
         float right = 0.5f;
-
-        auto [mid, side] = sl.encodeMS(left, right);
+        float mid, side;
+        sl.encodeMidSide(left, right, mid, side);
 
         REQUIRE_THAT(side, WithinAbs(0.0, 0.0001));
         REQUIRE_THAT(mid, WithinAbs(0.5, 0.0001));
@@ -92,8 +95,8 @@ TEST_CASE("M/S encode/decode roundtrip preserves original", "[stereo][ms]") {
     SECTION("Hard-panned left: equal mid and side") {
         float left = 1.0f;
         float right = 0.0f;
-
-        auto [mid, side] = sl.encodeMS(left, right);
+        float mid, side;
+        sl.encodeMidSide(left, right, mid, side);
 
         REQUIRE_THAT(mid, WithinAbs(0.5, 0.0001));
         REQUIRE_THAT(side, WithinAbs(0.5, 0.0001));
@@ -102,8 +105,8 @@ TEST_CASE("M/S encode/decode roundtrip preserves original", "[stereo][ms]") {
     SECTION("Hard-panned right: side is negative") {
         float left = 0.0f;
         float right = 1.0f;
-
-        auto [mid, side] = sl.encodeMS(left, right);
+        float mid, side;
+        sl.encodeMidSide(left, right, mid, side);
 
         REQUIRE_THAT(mid, WithinAbs(0.5, 0.0001));
         REQUIRE_THAT(side, WithinAbs(-0.5, 0.0001));
@@ -112,9 +115,9 @@ TEST_CASE("M/S encode/decode roundtrip preserves original", "[stereo][ms]") {
     SECTION("Negative values roundtrip") {
         float left = -0.4f;
         float right = 0.6f;
-
-        auto [mid, side] = sl.encodeMS(left, right);
-        auto [lOut, rOut] = sl.decodeMS(mid, side);
+        float mid, side, lOut, rOut;
+        sl.encodeMidSide(left, right, mid, side);
+        sl.decodeMidSide(mid, side, lOut, rOut);
 
         REQUIRE_THAT(lOut, WithinAbs(left, 0.0001));
         REQUIRE_THAT(rOut, WithinAbs(right, 0.0001));
@@ -126,8 +129,8 @@ TEST_CASE("Mid = (L+R)/2, Side = (L-R)/2", "[stereo][ms][formula]") {
 
     float left = 0.8f;
     float right = 0.2f;
-
-    auto [mid, side] = sl.encodeMS(left, right);
+    float mid, side;
+    sl.encodeMidSide(left, right, mid, side);
 
     float expectedMid  = (left + right) * 0.5f;
     float expectedSide = (left - right) * 0.5f;
@@ -150,8 +153,9 @@ TEST_CASE("M/S roundtrip with many random-like values", "[stereo][ms][fuzz]") {
         float right = pair[1];
 
         DYNAMIC_SECTION("L=" << left << " R=" << right) {
-            auto [mid, side] = sl.encodeMS(left, right);
-            auto [lOut, rOut] = sl.decodeMS(mid, side);
+            float mid, side, lOut, rOut;
+            sl.encodeMidSide(left, right, mid, side);
+            sl.decodeMidSide(mid, side, lOut, rOut);
 
             REQUIRE_THAT(lOut, WithinAbs(left, 0.0001));
             REQUIRE_THAT(rOut, WithinAbs(right, 0.0001));

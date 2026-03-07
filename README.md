@@ -67,36 +67,37 @@ See [report.md](report.md) for detailed project status and roadmap.
 ## Building from Source
 
 ### Prerequisites
-- **HISE** (latest stable build) - [Download here](https://hise.audio)
-- **C++17 compiler**: Xcode 12+ (macOS) or MSVC 2019+ (Windows)
-- **CMake 3.15+** (for future JUCE export)
+- **CMake 3.15+** — [cmake.org](https://cmake.org/download/) or `winget install cmake`
+- **C++17 compiler:** Xcode 12+ (macOS) or Visual Studio 2019+ (Windows, with “Desktop development with C++”)
+- **Ninja (recommended on Windows):** `choco install ninja` — not required if using Visual Studio generator
 
-### Current Development Setup
+**JUCE is fetched automatically** by CMake (no manual install). See [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md) for full details.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/EzSqueeze.git
-   cd EzSqueeze
-   git checkout newFeature/overhaul
-   ```
+### Quick build (Windows PowerShell)
 
-2. **Open in HISE**
-   - Launch HISE
-   - File → Open Project
-   - Navigate to `hise/xml/EZSqueezeV2.xml`
-   - Load the project
+From the project root (where `build.ps1` and `CMakeLists.txt` live):
 
-3. **Export Plugin** (when ready)
-   - In HISE: File → Export → Export as VST3/AU
-   - Follow HISE export wizard
-   - Built plugins will appear in `Binaries/` (gitignored)
-
-### Future JUCE Build Steps
-```bash
-mkdir build && cd build
-cmake .. -DPLUGIN_FORMATS=VST3;AU -DCMAKE_BUILD_TYPE=Release
-cmake --build . --config Release
+```powershell
+.\build.ps1           # Configure and build Release
+.\build.ps1 -Clean    # Clean build directory, then configure and build
+.\build.ps1 -Tests    # Build and run unit tests
 ```
+
+Output: `build/EzSqueeze_artefacts/Release/` (VST3, and AU on macOS).
+
+### Manual CMake build
+
+```bash
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release --parallel
+```
+
+More options (e.g. Visual Studio, tests): [docs/BUILD.md](docs/BUILD.md).
+
+### HISE (optional, for UI prototyping)
+
+- **HISE** is optional — [Download](https://hise.audio)
+- Open `hise/xml/EZSqueezeV2.xml` in HISE for interface scripting; the **JUCE build above** produces the distributable VST3/AU.
 
 ---
 
@@ -120,11 +121,14 @@ cmake --build . --config Release
 ## Documentation
 
 - [Project Report](report.md) — Current status, roadmap, and implementation plan
-- [Technical Notes](docs/TECH_NOTES.md) — DSP algorithms & math (coming soon)
+- [Architecture](docs/ARCHITECTURE.md) — Codebase layout, signal flow, and module overview
+- [Build Guide](docs/BUILD.md) — Prerequisites, build.ps1 usage, and troubleshooting
+- [Technical Notes](docs/TECH_NOTES.md) — DSP algorithms and math
 - [UI Design Guide](docs/DESIGN_UI.md) — Layout, theme, accessibility
 - [Contributing](CONTRIBUTING.md) — Code standards & PR process
 - [Changelog](CHANGELOG.md) — Version history
 - [Dependencies](docs/DEPENDENCIES.md) — Build requirements
+- [Audit log](docs/AUDIT.md) — Codebase audit and fixes (March 2026)
 
 ---
 
