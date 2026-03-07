@@ -1,0 +1,33 @@
+{
+  "name": "Lo-Fi Squeeze",
+  "category": "Creative",
+  "author": "EzSqueeze",
+  "tags": ["lo-fi", "crush", "character", "saturated", "tube", "extreme"],
+  "description": "Character crush for lo-fi aesthetics. Max vibe with tube impedance and cloud gain for extreme color.",
+  "parameters": {
+    "threshold": -24,
+    "ratio": 12,
+    "attack": 2,
+    "release": 80,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 2,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 100,
+    "dualStack": false,
+    "cloudGain": 10,
+    "impedance": "Tube",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

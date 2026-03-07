@@ -1,0 +1,33 @@
+{
+  "name": "De-Esser Trick",
+  "category": "Utility",
+  "author": "EzSqueeze",
+  "tags": ["de-esser", "sibilance", "vocal", "sidechain filter", "trick"],
+  "description": "Sibilance control using sidechain filtering as a de-esser. HPF/LPF isolate the sibilant band for targeted compression.",
+  "parameters": {
+    "threshold": -25,
+    "ratio": 6,
+    "attack": 0.2,
+    "release": 30,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 300,
+    "scLPF": 8000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

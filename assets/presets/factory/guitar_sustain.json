@@ -1,0 +1,33 @@
+{
+  "name": "Guitar Sustain",
+  "category": "Guitar",
+  "author": "EzSqueeze",
+  "tags": ["guitar", "sustain", "electric", "body", "warm"],
+  "description": "Electric guitar sustain enhancement. Adds body and warmth while keeping the pick attack natural.",
+  "parameters": {
+    "threshold": -20,
+    "ratio": 4,
+    "attack": 5,
+    "release": 200,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 30,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 70,
+    "deSnap": 0
+  }
+}

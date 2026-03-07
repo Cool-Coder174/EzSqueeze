@@ -1,0 +1,33 @@
+{
+  "name": "Vocal Leveler",
+  "category": "Vocal",
+  "author": "EzSqueeze",
+  "tags": ["vocal", "leveler", "dual-stage", "consistent", "broadcast"],
+  "description": "Dual-stage vocal leveling. First stage catches peaks, second stage smooths the overall level.",
+  "parameters": {
+    "threshold": -22,
+    "ratio": 3,
+    "attack": 10,
+    "release": 200,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 80,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": true,
+    "autoMakeup": true,
+    "vibeWheel": 0,
+    "dualStack": true,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

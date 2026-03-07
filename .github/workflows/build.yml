@@ -1,0 +1,69 @@
+##############################################################################
+# EzSqueeze — Build workflow
+# Builds VST3 + AU (macOS) and VST3 (Windows) on every push / PR.
+##############################################################################
+
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - "newFeature/**"
+  pull_request:
+    branches:
+      - main
+      - "newFeature/**"
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS-Universal
+            os: macos-latest
+            cmake_extra: >-
+              -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+            artifact_path: build/EzSqueeze_artefacts/Release
+            artifact_name: EzSqueeze-macOS-Universal
+
+          - name: Windows-x64
+            os: windows-latest
+            cmake_extra: ""
+            artifact_path: build/EzSqueeze_artefacts/Release
+            artifact_name: EzSqueeze-Windows-x64
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install cmake ninja
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: choco install ninja -y
+
+      - name: Configure CMake
+        run: >
+          cmake -B build
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          ${{ matrix.cmake_extra }}
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_path }}
+          if-no-files-found: warn

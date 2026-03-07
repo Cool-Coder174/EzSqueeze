@@ -1,0 +1,33 @@
+{
+  "name": "Default",
+  "category": "General",
+  "author": "EzSqueeze",
+  "tags": ["default", "starting point", "clean"],
+  "description": "Clean starting point with balanced settings for any source material.",
+  "parameters": {
+    "threshold": -12,
+    "ratio": 4,
+    "attack": 4,
+    "release": 300,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

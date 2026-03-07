@@ -1,0 +1,33 @@
+{
+  "name": "Snare Snap",
+  "category": "Drum",
+  "author": "EzSqueeze",
+  "tags": ["snare", "snap", "punch", "transient", "crack"],
+  "description": "Punchy snare compression. Ultra-fast attack grabs the transient with high snap to emphasize the crack.",
+  "parameters": {
+    "threshold": -16,
+    "ratio": 6,
+    "attack": 0.3,
+    "release": 80,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 90,
+    "body": 30,
+    "deSnap": 0
+  }
+}

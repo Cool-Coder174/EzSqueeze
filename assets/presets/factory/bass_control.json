@@ -1,0 +1,33 @@
+{
+  "name": "Bass Control",
+  "category": "Bass",
+  "author": "EzSqueeze",
+  "tags": ["bass", "control", "low-end", "taming", "sidechain HPF"],
+  "description": "Low-end taming for bass guitar and synth bass. Sidechain HPF prevents false triggering from sub frequencies.",
+  "parameters": {
+    "threshold": -18,
+    "ratio": 4,
+    "attack": 5,
+    "release": 150,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 80,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 60,
+    "deSnap": 0
+  }
+}

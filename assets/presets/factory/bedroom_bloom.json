@@ -1,0 +1,33 @@
+{
+  "name": "Bedroom Bloom",
+  "category": "Creative",
+  "author": "EzSqueeze",
+  "tags": ["soft", "glue", "parallel", "lo-fi", "chill"],
+  "description": "Soft glue compression with parallel mix for bedroom pop and chill productions.",
+  "parameters": {
+    "threshold": -16,
+    "ratio": 2,
+    "attack": 20,
+    "release": 400,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 60,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 40,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

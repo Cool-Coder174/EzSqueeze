@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ezsqueeze.dev/preset-schema/v1",
+  "title": "EzSqueeze Preset",
+  "description": "Schema for EzSqueeze compressor plugin presets",
+  "type": "object",
+  "required": ["name", "category", "parameters"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name of the preset",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "category": {
+      "type": "string",
+      "description": "Preset category for browser organization",
+      "enum": ["Vocal", "Drum", "Bass", "Guitar", "Keys", "Mix Bus", "Master", "Creative", "Utility", "General"]
+    },
+    "author": {
+      "type": "string",
+      "description": "Preset creator",
+      "default": "EzSqueeze"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable tags for preset discovery",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the preset character and intended use"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "All plugin parameters",
+      "required": ["threshold", "ratio", "attack", "release"],
+      "properties": {
+        "threshold": {
+          "type": "number",
+          "description": "Threshold in dB",
+          "minimum": -60,
+          "maximum": 0,
+          "default": -20
+        },
+        "ratio": {
+          "type": "number",
+          "description": "Compression ratio (N:1)",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 4
+        },
+        "attack": {
+          "type": "number",
+          "description": "Attack time in milliseconds",
+          "minimum": 0.01,
+          "maximum": 100,
+          "default": 10
+        },
+        "release": {
+          "type": "number",
+          "description": "Release time in milliseconds",
+          "minimum": 5,
+          "maximum": 5000,
+          "default": 200
+        },
+        "knee": {
+          "type": "string",
+          "description": "Knee type",
+          "enum": ["Hard", "Medium", "Soft"],
+          "default": "Hard"
+        },
+        "makeup": {
+          "type": "number",
+          "description": "Makeup gain in dB",
+          "minimum": 0,
+          "maximum": 30,
+          "default": 0
+        },
+        "mix": {
+          "type": "number",
+          "description": "Dry/wet mix percentage (0 = dry, 100 = wet)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 100
+        },
+        "detector": {
+          "type": "string",
+          "description": "Detection mode",
+          "enum": ["Peak", "RMS"],
+          "default": "Peak"
+        },
+        "lookahead": {
+          "type": "number",
+          "description": "Lookahead time in milliseconds",
+          "minimum": 0,
+          "maximum": 20,
+          "default": 0
+        },
+        "stereoLink": {
+          "type": "number",
+          "description": "Stereo link percentage",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 100
+        },
+        "msMode": {
+          "type": "boolean",
+          "description": "Enable Mid/Side processing mode",
+          "default": false
+        },
+        "scHPF": {
+          "type": "number",
+          "description": "Sidechain high-pass filter frequency in Hz",
+          "minimum": 20,
+          "maximum": 2000,
+          "default": 20
+        },
+        "scLPF": {
+          "type": "number",
+          "description": "Sidechain low-pass filter frequency in Hz",
+          "minimum": 200,
+          "maximum": 20000,
+          "default": 20000
+        },
+        "oversampling": {
+          "type": "integer",
+          "description": "Oversampling factor",
+          "enum": [1, 2, 4, 8],
+          "default": 1
+        },
+        "ecoMode": {
+          "type": "boolean",
+          "description": "Enable eco mode for reduced CPU usage",
+          "default": false
+        },
+        "autoRelease": {
+          "type": "boolean",
+          "description": "Enable program-dependent automatic release",
+          "default": false
+        },
+        "autoMakeup": {
+          "type": "boolean",
+          "description": "Enable automatic makeup gain",
+          "default": false
+        },
+        "vibeWheel": {
+          "type": "number",
+          "description": "Vibe/character amount (0 = clean, 100 = saturated)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        },
+        "dualStack": {
+          "type": "boolean",
+          "description": "Enable dual-stage serial compression",
+          "default": false
+        },
+        "cloudGain": {
+          "type": "number",
+          "description": "Cloud-gain preamp in dB",
+          "minimum": 0,
+          "maximum": 30,
+          "default": 0
+        },
+        "impedance": {
+          "type": "string",
+          "description": "Impedance character model",
+          "enum": ["Silicon", "Tube", "Transformer"],
+          "default": "Silicon"
+        },
+        "snap": {
+          "type": "number",
+          "description": "Transient snap amount (0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 50
+        },
+        "body": {
+          "type": "number",
+          "description": "Body/sustain emphasis amount (0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 50
+        },
+        "deSnap": {
+          "type": "number",
+          "description": "De-snap transient softening (0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        }
+      }
+    }
+  }
+}

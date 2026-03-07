@@ -1,0 +1,33 @@
+{
+  "name": "Drum Punch Stack",
+  "category": "Drum",
+  "author": "EzSqueeze",
+  "tags": ["drum", "punch", "dual-stage", "transient", "aggressive"],
+  "description": "Dual-stage drum compression. FET stage adds snap and punch, opto stage provides body and sustain.",
+  "parameters": {
+    "threshold": -14,
+    "ratio": 5,
+    "attack": 1,
+    "release": 60,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": true,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 70,
+    "body": 50,
+    "deSnap": 0
+  }
+}

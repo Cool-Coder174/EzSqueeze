@@ -1,0 +1,32 @@
+##############################################################################
+# EzSqueeze — Lint workflow
+# Checks source formatting against the project .clang-format rules.
+##############################################################################
+
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+      - "newFeature/**"
+  pull_request:
+
+jobs:
+  clang-format:
+    name: clang-format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install clang-format-17
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq clang-format-17
+
+      - name: Check formatting
+        run: |
+          find source modules -type f \( -name '*.h' -o -name '*.cpp' \) \
+            | xargs clang-format-17 --dry-run --Werror

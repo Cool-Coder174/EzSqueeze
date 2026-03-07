@@ -1,0 +1,33 @@
+{
+  "name": "Clean Transparent",
+  "category": "Utility",
+  "author": "EzSqueeze",
+  "tags": ["clean", "transparent", "invisible", "natural", "soft knee"],
+  "description": "Invisible compression that controls dynamics without coloring the sound. Soft knee and zero vibe for purity.",
+  "parameters": {
+    "threshold": -14,
+    "ratio": 2,
+    "attack": 15,
+    "release": 250,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": true,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

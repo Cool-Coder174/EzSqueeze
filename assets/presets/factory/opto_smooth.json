@@ -1,0 +1,33 @@
+{
+  "name": "Opto Smooth",
+  "category": "General",
+  "author": "EzSqueeze",
+  "tags": ["opto", "smooth", "gentle", "auto-release", "warm"],
+  "description": "Gentle opto-style compression with program-dependent release. Smooth and musical with subtle vibe character.",
+  "parameters": {
+    "threshold": -18,
+    "ratio": 2.5,
+    "attack": 15,
+    "release": 400,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": true,
+    "autoMakeup": false,
+    "vibeWheel": 25,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "VCA Bus Glue",
+  "category": "Mix Bus",
+  "author": "EzSqueeze",
+  "tags": ["VCA", "bus", "glue", "mixbus", "cohesion"],
+  "description": "Transparent VCA-style mix bus cohesion. Gentle ratio with full stereo link keeps the image intact.",
+  "parameters": {
+    "threshold": -10,
+    "ratio": 2,
+    "attack": 30,
+    "release": 200,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 60,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

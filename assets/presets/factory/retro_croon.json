@@ -1,0 +1,33 @@
+{
+  "name": "Retro Croon Warmth",
+  "category": "Vocal",
+  "author": "EzSqueeze",
+  "tags": ["vocal", "retro", "warm", "ballad", "vintage", "tube"],
+  "description": "Ballad mid-thick character for crooner vocals. Tube impedance adds warm even harmonics.",
+  "parameters": {
+    "threshold": -20,
+    "ratio": 4,
+    "attack": 15,
+    "release": 250,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 60,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": true,
+    "vibeWheel": 60,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Tube",
+    "snap": 40,
+    "body": 60,
+    "deSnap": 0
+  }
+}

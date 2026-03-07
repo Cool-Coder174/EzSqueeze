@@ -1,0 +1,33 @@
+{
+  "name": "Podcast Voice",
+  "category": "Vocal",
+  "author": "EzSqueeze",
+  "tags": ["podcast", "broadcast", "voice", "leveling", "speech"],
+  "description": "Broadcast-quality voice leveling for podcasts and spoken word. Auto-makeup keeps levels consistent.",
+  "parameters": {
+    "threshold": -20,
+    "ratio": 3.5,
+    "attack": 10,
+    "release": 200,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 100,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": true,
+    "autoMakeup": true,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Pop Vocal Shine",
+  "category": "Vocal",
+  "author": "EzSqueeze",
+  "tags": ["vocal", "pop", "airy", "polish", "bright"],
+  "description": "Modern airy polish for pop vocals. Adds presence and sparkle while controlling dynamics.",
+  "parameters": {
+    "threshold": -18,
+    "ratio": 3,
+    "attack": 8,
+    "release": 150,
+    "knee": "Medium",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 80,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": true,
+    "vibeWheel": 20,
+    "dualStack": false,
+    "cloudGain": 3,
+    "impedance": "Silicon",
+    "snap": 55,
+    "body": 45,
+    "deSnap": 0
+  }
+}

@@ -1,50 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ContentProperties DeviceType="Desktop">
-  <Component type="ScriptPanel" id="Panel1" x="0.0" y="-1.0" width="800.0"
-             height="600.0" itemColour="4294744360" itemColour2="4292770066"
-             textColour="4290792448">
-    <Component type="ScriptLabel" id="Label1" x="10.0" y="10.0" parentComponent="Panel1"
-               width="240" height="80" fontName="Aderoy" fontSize="66.0" textColour="4290792448"
-               text="SQUEEZE" fontStyle="Narrow" editable="0"/>
-    <Component type="ScriptLabel" id="Label2" x="390.0" y="271.0" parentComponent="Panel1"
-               editable="0" fontName="Oxygen" fontSize="33.0" textColour="4290792448"
-               text="ATTACK" fontStyle="Bold"/>
-    <Component type="ScriptLabel" id="Label3" x="560.0" y="271.0" parentComponent="Panel1"
-               editable="0" fontName="Oxygen" fontSize="33.0" textColour="4290792448"
-               text="RELEASE" fontStyle="Bold"/>
-    <Component type="ScriptLabel" id="Label4" x="390.0" y="471.0" parentComponent="Panel1"
-               editable="0" fontName="Oxygen" fontSize="33.0" textColour="4290792448"
-               text="THRESHOLD" fontStyle="Bold"/>
-    <Component type="ScriptLabel" id="Label5" x="560.0" y="471.0" parentComponent="Panel1"
-               editable="0" fontName="Oxygen" fontSize="33.0" textColour="4290792448"
-               text="RATIO" fontStyle="Bold"/>
-    <Component type="ScriptLabel" id="Label6" x="150.0" y="401.0" parentComponent="Panel1"
-               editable="0" fontName="Oxygen" fontSize="33.0" textColour="4290792448"
-               text="ATTACK" enabled="0" visible="0"/>
-  </Component>
-  <Component type="ScriptSlider" id="Knob1" x="380.0" y="120.0" stepSize="0.1000000014901161"
-             filmstripImage="{PROJECT_FOLDER}orangeKnob.png" width="150.0"
-             height="150.0" numStrips="60.0" scaleFactor="0.324999988079071"
-             showValuePopup="Below" processorId="Dynamics1" parameterId="CompressorAttack"
-             max="100.0"/>
-  <Component type="ScriptSlider" id="Knob2" x="550.0" y="120.0" stepSize="0.1000000014901161"
-             filmstripImage="{PROJECT_FOLDER}orangeKnob.png" width="150.0"
-             height="150.0" numStrips="60.0" scaleFactor="0.324999988079071"
-             showValuePopup="Below" processorId="Dynamics1" parameterId="CompressorRelease"
-             max="300.0"/>
-  <Component type="ScriptSlider" id="Knob3" x="380.0" y="320.0" stepSize="0.1000000014901161"
-             filmstripImage="{PROJECT_FOLDER}orangeKnob.png" width="150.0"
-             height="150.0" numStrips="60.0" scaleFactor="0.324999988079071"
-             showValuePopup="Below" processorId="Dynamics1" parameterId="CompressorThreshold"
-             min="-100.0" max="0.0" middlePosition="-50.0"/>
-  <Component type="ScriptSlider" id="Knob4" x="550.0" y="320.0" stepSize="0.1000000014901161"
-             filmstripImage="{PROJECT_FOLDER}orangeKnob.png" width="150.0"
-             height="150.0" numStrips="60.0" scaleFactor="0.324999988079071"
-             showValuePopup="Below" processorId="Dynamics1" parameterId="CompressorRatio"
-             min="1.0" max="32.0"/>
-  <Component type="ScriptSlider" id="Knob5" x="100.0" y="170.0" stepSize="0.1000000014901161"
-             filmstripImage="{PROJECT_FOLDER}orangeKnob2.png" width="230.0"
-             height="230.0" numStrips="60.0" scaleFactor="0.5" showValuePopup="Below"
-             enabled="0" visible="0"/>
+  <Component type="ScriptPanel" id="pnlBg" x="0" y="0" width="900" height="650"
+             allowCallbacks="No Callbacks"/>
+
+  <!-- Header controls -->
+  <Component type="ScriptComboBox" id="cmbDetector" x="680" y="18" width="80" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnEcoMode" x="780" y="18" width="60" height="28"
+             textColour="4292927712"/>
+
+  <!-- Meters -->
+  <Component type="ScriptPanel" id="pnlInputMeter" x="28" y="90" width="50" height="380"/>
+  <Component type="ScriptPanel" id="pnlGrMeter" x="90" y="90" width="50" height="380"/>
+  <Component type="ScriptPanel" id="pnlOutputMeter" x="148" y="90" width="50" height="380"/>
+
+  <!-- Main controls — top row -->
+  <Component type="ScriptSlider" id="knbThreshold" x="240" y="95" width="100" height="100"
+             min="-60" max="0" stepSize="0.1" middlePosition="-24.0" defaultValue="-12.0"
+             suffix=" dB" style="Knob" showValuePopup="Below" textColour="4292927712"
+             processorId="Dynamics1" parameterId="CompressorThreshold"/>
+  <Component type="ScriptSlider" id="knbRatio" x="360" y="95" width="100" height="100"
+             min="1" max="32" stepSize="0.1" middlePosition="4.0" defaultValue="4.0"
+             suffix=" :1" style="Knob" showValuePopup="Below" textColour="4292927712"
+             processorId="Dynamics1" parameterId="CompressorRatio"/>
+  <Component type="ScriptComboBox" id="cmbKnee" x="480" y="120" width="80" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbAttack" x="580" y="95" width="100" height="100"
+             min="0.1" max="100" stepSize="0.1" middlePosition="15.0" defaultValue="4.0"
+             suffix=" ms" style="Knob" showValuePopup="Below" textColour="4292927712"
+             processorId="Dynamics1" parameterId="CompressorAttack"/>
+  <Component type="ScriptSlider" id="knbRelease" x="700" y="95" width="100" height="100"
+             min="5" max="500" stepSize="1.0" middlePosition="100.0" defaultValue="300.0"
+             suffix=" ms" style="Knob" showValuePopup="Below" textColour="4292927712"
+             processorId="Dynamics1" parameterId="CompressorRelease"/>
+
+  <!-- Main controls — bottom row -->
+  <Component type="ScriptSlider" id="knbVibeWheel" x="240" y="237" width="100" height="100"
+             min="0" max="100" stepSize="0.1" defaultValue="0.0"
+             suffix=" %" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnDualStack" x="370" y="268" width="70" height="30"
+             textColour="4292927712"/>
+  <Component type="ScriptComboBox" id="cmbImpedance" x="460" y="270" width="100" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbCloudGain" x="580" y="242" width="90" height="90"
+             min="0" max="30" stepSize="0.1" defaultValue="0.0"
+             suffix=" dB" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbMix" x="700" y="242" width="90" height="90"
+             min="0" max="100" stepSize="1.0" defaultValue="100.0"
+             suffix=" %" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+
+  <!-- Advanced panel -->
+  <Component type="ScriptSlider" id="knbLookahead" x="230" y="375" width="65" height="65"
+             min="0" max="10" stepSize="0.1" defaultValue="0.0"
+             suffix=" ms" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbStereoLink" x="310" y="375" width="65" height="65"
+             min="0" max="100" stepSize="1.0" defaultValue="100.0"
+             suffix=" %" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnMsMode" x="395" y="390" width="50" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbScHpf" x="460" y="375" width="65" height="65"
+             min="20" max="400" stepSize="1.0" middlePosition="80.0" defaultValue="20.0"
+             suffix=" Hz" style="Knob" showValuePopup="Below" textColour="4292927712"/>
+  <Component type="ScriptSlider" id="knbScLpf" x="540" y="375" width="65" height="65"
+             min="4000" max="16000" stepSize="100.0" middlePosition="8000.0"
+             defaultValue="16000.0" suffix=" Hz" style="Knob" showValuePopup="Below"
+             textColour="4292927712"/>
+  <Component type="ScriptComboBox" id="cmbOversampling" x="620" y="390" width="65" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnAutoRelease" x="700" y="390" width="60" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnAutoMakeup" x="780" y="390" width="60" height="28"
+             textColour="4292927712"/>
+
+  <!-- Footer -->
+  <Component type="ScriptComboBox" id="cmbPreset" x="25" y="560" width="250" height="30"
+             textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnAB" x="300" y="562" width="50" height="28"
+             textColour="4292927712"/>
+  <Component type="ScriptButton" id="btnUndo" x="370" y="562" width="40" height="28"
+             textColour="4292927712" isMomentary="1"/>
+  <Component type="ScriptButton" id="btnRedo" x="420" y="562" width="40" height="28"
+             textColour="4292927712" isMomentary="1"/>
+  <Component type="ScriptButton" id="btnAutoSweetSpot" x="490" y="562" width="120" height="28"
+             textColour="4292927712" isMomentary="1"/>
+  <Component type="ScriptSlider" id="knbMakeup" x="660" y="550" width="80" height="80"
+             min="0" max="24" stepSize="0.1" defaultValue="0.0"
+             suffix=" dB" style="Knob" showValuePopup="Below" textColour="4292927712"
+             processorId="Dynamics1" parameterId="CompressorMakeup"/>
+
+  <!-- Utility panels -->
+  <Component type="ScriptPanel" id="pnlCurve" x="210" y="465" width="300" height="65"
+             allowCallbacks="No Callbacks"/>
+  <Component type="ScriptPanel" id="pnlGrReadout" x="30" y="498" width="80" height="28"/>
+  <Component type="ScriptPanel" id="pnlTooltip" x="25" y="610" width="400" height="24"/>
+  <Component type="ScriptPanel" id="pnlTimer" x="0" y="0" width="0" height="0" visible="0"/>
+
+  <!-- Labels (auto-generated by script; listed for completeness) -->
+  <Component type="ScriptLabel" id="lblThreshold" x="240" y="198" width="100" height="20"
+             text="THRESHOLD" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblRatio" x="360" y="198" width="100" height="20"
+             text="RATIO" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblKnee" x="480" y="152" width="80" height="20"
+             text="KNEE" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblAttack" x="580" y="198" width="100" height="20"
+             text="ATTACK" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblRelease" x="700" y="198" width="100" height="20"
+             text="RELEASE" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblVibe" x="235" y="340" width="110" height="20"
+             text="VIBE" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblDualStack" x="360" y="300" width="90" height="20"
+             text="DUAL STACK" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblImpedance" x="455" y="300" width="110" height="20"
+             text="IMPEDANCE" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblCloudGain" x="575" y="335" width="100" height="20"
+             text="CLOUD GAIN" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblMix" x="700" y="335" width="90" height="20"
+             text="MIX" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblMakeup" x="655" y="630" width="90" height="20"
+             text="MAKEUP" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblLookahead" x="220" y="442" width="85" height="20"
+             text="LOOK" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblStereoLink" x="300" y="442" width="85" height="20"
+             text="LINK" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblMsMode" x="388" y="420" width="65" height="20"
+             text="M/S" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblScHpf" x="450" y="442" width="85" height="20"
+             text="SC HPF" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblScLpf" x="530" y="442" width="85" height="20"
+             text="SC LPF" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblOversampling" x="612" y="420" width="80" height="20"
+             text="OVERSMP" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblAutoRelease" x="693" y="420" width="75" height="20"
+             text="A.REL" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblAutoMakeup" x="773" y="420" width="75" height="20"
+             text="A.MU" fontName="Arial" fontSize="9.0" fontStyle="Bold"
+             textColour="4292927712" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblIn" x="18" y="472" width="70" height="18"
+             text="IN" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4287664272" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblGR" x="80" y="472" width="70" height="18"
+             text="GR" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4293890860" alignment="centred" editable="0"/>
+  <Component type="ScriptLabel" id="lblOut" x="138" y="472" width="70" height="18"
+             text="OUT" fontName="Arial" fontSize="10.0" fontStyle="Bold"
+             textColour="4287664272" alignment="centred" editable="0"/>
 </ContentProperties>

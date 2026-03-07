@@ -1,0 +1,33 @@
+{
+  "name": "Master Glue",
+  "category": "Master",
+  "author": "EzSqueeze",
+  "tags": ["master", "glue", "mastering", "gentle", "transparent"],
+  "description": "Gentle mastering glue. Low ratio and soft knee with full stereo link for cohesive stereo bus treatment.",
+  "parameters": {
+    "threshold": -8,
+    "ratio": 1.5,
+    "attack": 30,
+    "release": 300,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 60,
+    "scLPF": 20000,
+    "oversampling": 2,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

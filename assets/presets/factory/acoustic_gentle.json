@@ -1,0 +1,33 @@
+{
+  "name": "Acoustic Gentle",
+  "category": "Guitar",
+  "author": "EzSqueeze",
+  "tags": ["acoustic", "gentle", "transparent", "soft knee", "natural"],
+  "description": "Transparent compression for acoustic instruments. Soft knee preserves natural dynamics.",
+  "parameters": {
+    "threshold": -24,
+    "ratio": 2,
+    "attack": 25,
+    "release": 300,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": true,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

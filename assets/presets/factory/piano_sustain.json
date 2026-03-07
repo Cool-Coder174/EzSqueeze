@@ -1,0 +1,33 @@
+{
+  "name": "Piano Sustain",
+  "category": "Keys",
+  "author": "EzSqueeze",
+  "tags": ["piano", "sustain", "keys", "body", "smooth"],
+  "description": "Extends piano sustain by bringing up the tail. High body emphasis preserves the resonance and decay.",
+  "parameters": {
+    "threshold": -22,
+    "ratio": 3,
+    "attack": 20,
+    "release": 500,
+    "knee": "Soft",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "RMS",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": true,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 40,
+    "body": 80,
+    "deSnap": 0
+  }
+}

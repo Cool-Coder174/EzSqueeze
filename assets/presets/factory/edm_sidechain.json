@@ -1,0 +1,33 @@
+{
+  "name": "EDM Sidechain",
+  "category": "Creative",
+  "author": "EzSqueeze",
+  "tags": ["EDM", "sidechain", "pump", "duck", "electronic"],
+  "description": "Sidechain pump effect for EDM and electronic music. High ratio with sidechain HPF creates the classic ducking feel.",
+  "parameters": {
+    "threshold": -20,
+    "ratio": 8,
+    "attack": 0.5,
+    "release": 100,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 200,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 50,
+    "body": 50,
+    "deSnap": 0
+  }
+}

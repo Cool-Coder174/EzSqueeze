@@ -1,0 +1,62 @@
+##############################################################################
+# EzSqueeze — Test workflow
+# Builds and runs the test suite on macOS and Windows.
+##############################################################################
+
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+      - "newFeature/**"
+  pull_request:
+
+jobs:
+  test:
+    name: Tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install cmake ninja
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: choco install ninja -y
+
+      - name: Configure CMake
+        run: >
+          cmake -B build
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Run tests
+        working-directory: build
+        run: ctest --output-on-failure -C Release
+
+      - name: Run clang-tidy (macOS only)
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        run: |
+          if command -v clang-tidy &> /dev/null; then
+            cmake -B build-tidy -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+            clang-tidy -p build-tidy source/plugin/*.cpp || true
+          else
+            echo "clang-tidy not found, skipping"
+          fi

@@ -1,0 +1,33 @@
+{
+  "name": "FET Fast Punch",
+  "category": "Drum",
+  "author": "EzSqueeze",
+  "tags": ["FET", "fast", "punch", "transient", "aggressive"],
+  "description": "FET-style transient bite for drums and percussive sources. Extremely fast attack grabs peaks.",
+  "parameters": {
+    "threshold": -15,
+    "ratio": 6,
+    "attack": 0.5,
+    "release": 80,
+    "knee": "Hard",
+    "makeup": 0,
+    "mix": 100,
+    "detector": "Peak",
+    "lookahead": 0,
+    "stereoLink": 100,
+    "msMode": false,
+    "scHPF": 20,
+    "scLPF": 20000,
+    "oversampling": 1,
+    "ecoMode": false,
+    "autoRelease": false,
+    "autoMakeup": false,
+    "vibeWheel": 0,
+    "dualStack": false,
+    "cloudGain": 0,
+    "impedance": "Silicon",
+    "snap": 80,
+    "body": 50,
+    "deSnap": 0
+  }
+}
