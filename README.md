@@ -177,7 +177,7 @@ GPL-3.0 — See [LICENSE](LICENSE) for details.
 
 ## Credits
 
-**Developed with ❤️ by Isaac Hernandez**
+**Developed with ❤️ by Sara Zhao & Isaias Hernandez**
 
 **Design**: Citrus Liquid Glass theme inspired by Apple's design language  
 **Special Thanks**: HISE community, JUCE framework, and all contributors
